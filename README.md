@@ -47,3 +47,10 @@ this is the wrong library — use it when you want canonical ranges.
 - Ranges are not merged across commas. `U+400-4FF, U+450-500` stays as
   two ranges. Merging changes caller-visible ordering and is a separate
   concern from parsing.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
